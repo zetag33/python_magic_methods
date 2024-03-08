@@ -14,9 +14,19 @@ class time_interval():
             minutes = (total_seconds % 3600) // 60
             seconds = total_seconds % 60
             return hours, minutes, seconds
+        elif isinstance(other, int):
+            total_hours = self.hours
+            total_minutes = (total_hours * 60) + self.minutes
+            total_seconds = total_minutes * 60 + self.seconds
+            total_seconds = total_seconds + other
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            seconds = total_seconds % 60
+            return hours, minutes, seconds            
+
         else:
             raise Exception('One of the objects was not of time_interval class')
-            
+    
     def __sub__(self, other):
         if isinstance(other, time_interval):
             total_seconds_self = self.hours * 3600 + self.minutes * 60 + self.seconds
@@ -26,8 +36,18 @@ class time_interval():
             minutes = (total_seconds_diff % 3600) // 60
             seconds = total_seconds_diff % 60
             return hours, minutes, seconds
+        elif isinstance(other, int):
+            total_hours = self.hours
+            total_minutes = (total_hours * 60) + self.minutes
+            total_seconds = total_minutes * 60 + self.seconds
+            total_seconds = total_seconds - other
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            seconds = total_seconds % 60
+            return hours, minutes, seconds  
         else:
             raise Exception('One of the objects was not of time_interval class')
+
     def __mul__(self, other):
         if isinstance(other, int):
             total_seconds_self = self.hours * 3600 + self.minutes * 60 + self.seconds
@@ -38,6 +58,7 @@ class time_interval():
             return hours, minutes, seconds
         else:
             raise Exception('You need to multiply by an integer')
+
     def __str__(self):
         hours = str(self.hours)
         minutes = str(self.minutes)
@@ -52,3 +73,6 @@ print(a1+a2)
 print(a1-a2)
 print(a1*3)
 print(str(a1))
+print(a1 + 1)
+print(a2 -60)
+print(a2-3600)
